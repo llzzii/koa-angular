@@ -1,3 +1,35 @@
-<p>
-  login works!
-</p>
+<div class="login-body">
+    
+        <div class="login">
+            <div class="img-head"><img src="../../assets/images/234png.png" alt=""></div>
+                <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+                    <nz-form-item>
+                      <nz-form-control>
+                        <nz-input-group [nzPrefix]="prefixUser">
+                          <input type="text" nz-input formControlName="userName" placeholder="用户名" />
+                        </nz-input-group>
+                        <nz-form-explain *ngIf="validateForm.get('userName')?.dirty && validateForm.get('userName')?.errors"
+                          >请输入您的用户名!</nz-form-explain
+                        >
+                      </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                      <nz-form-control>
+                        <nz-input-group [nzPrefix]="prefixLock">
+                          <input type="password" nz-input formControlName="password" placeholder="密码" />
+                        </nz-input-group>
+                        <nz-form-explain *ngIf="validateForm.get('password')?.dirty && validateForm.get('password')?.errors"
+                          >请输入您的密码!</nz-form-explain
+                        >
+                      </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                      <nz-form-control>
+                        <button nz-button class="login-form-button" nzBlock [nzType]="'primary'">登录</button>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </form>
+                  <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+                  <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+            </div>
+</div>

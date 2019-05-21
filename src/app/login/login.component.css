@@ -1,0 +1,19 @@
+.login-body{
+    background: url(../../assets/images/123.jpg) no-repeat center center;
+    height: 100%;
+    background-size: 100%;
+}
+.login{
+    width: 300px;
+    float: right;
+    margin-right: 20%;
+    margin-top: 10%;
+}
+.img-head{
+    height: 150px;
+    text-align: center;
+}
+.img-head img{
+    max-width: 100%;
+    max-height: 100%;
+}

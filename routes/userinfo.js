@@ -1,19 +1,28 @@
 const router = require('koa-router')()
+const md5=require('md5');
+const user=require('../model/userinfo');
+const info=require('../middleware/info');
 
-router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: 'Hello Koa 2!'
-  })
-})
 
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
 
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
+router.post('/api/login', async (ctx, next) => {
+  const userinfo=ctx.request.body;
+  const password=md5(md5(user.password).substr(4,7)+md5(user.password));
+  try{
+      const data=await user.login(userinfo.username); 
+      if(data[0]){
+        if(data[0].password===password){
+          ctx.body=info.suc('登录成功');
+        }else{
+          ctx.body=info.err('密码错误');
+        }
+      }else{
+        ctx.body=info.err('用户不存在');
+      }
+  }catch{
+
   }
 })
+
 
 module.exports = router
