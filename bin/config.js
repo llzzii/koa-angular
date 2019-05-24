@@ -2,7 +2,7 @@ const mysql=require('mysql');
 const comysql=require("co-mysql");
 
 const config={
-    port:3000,
+    port:3004,
     db:{
         database:'angdemo',
         user:'root',

@@ -7,14 +7,14 @@ const info=require('../middleware/info');
 
 router.post('/api/login', async (ctx, next) => {
   const userinfo=ctx.request.body;
-  const password=md5(md5(user.password).substr(4,7)+md5(user.password));
+  const password=md5(md5(userinfo.password).substr(4,7)+md5(userinfo.password));
   try{
       const data=await user.login(userinfo.username); 
       if(data[0]){
         if(data[0].password===password){
           ctx.body=info.suc('登录成功');
         }else{
-          ctx.body=info.err('密码错误');
+          ctx.body=info.err('账号或密码错误');
         }
       }else{
         ctx.body=info.err('用户不存在');
