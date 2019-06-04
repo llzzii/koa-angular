@@ -1,6 +1,16 @@
-.left{
-    float: left;
+.left {
+  float: left;
 }
-.right{
-    float: right;
+
+.right {
+  float: right;
+}
+
+.brbottom {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.noborder {
+  border-bottom: none;
+  line-height: 64px;
 }

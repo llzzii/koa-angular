@@ -1,0 +1,67 @@
+{
+  "label": "IoT OSS",
+  "icon": "fab fa-audible",
+  "link": "hub/endpoint",
+  "sideLists": [{
+      "level": 1,
+      "label": "工作台",
+      "link": "/home",
+      "icon": "home",
+      "open": false,
+      "selected": false,
+      "disabled": false
+    }, {
+      "level": 1,
+      "label": "用户管理",
+      "icon": "user",
+      "open": false,
+      "selected": false,
+      "disabled": false,
+      "children": [{
+        "level": 2,
+        "label": "用户列表",
+        "icon": "fas fa-box-open",
+        "open": false,
+        "selected": false,
+        "disabled": false,
+        "link": "/home/user"
+      }]
+    },
+    {
+      "level": 1,
+      "label": "业务管理",
+      "icon": "setting",
+      "open": false,
+      "selected": false,
+      "disabled": false,
+      "children": [{
+          "level": 2,
+          "label": "项目",
+          "link": "hub/project",
+          "icon": "fas fa-box-open",
+          "open": false,
+          "selected": false,
+          "disabled": false
+        },
+        {
+          "level": 2,
+          "label": "产品",
+          "link": "product",
+          "icon": "fa fa-hdd",
+          "open": false,
+          "selected": false,
+          "disabled": false
+        },
+        {
+          "level": 2,
+          "label": "设备",
+          "link": "device",
+          "icon": "fa fa-hdd",
+          "open": false,
+          "selected": false,
+          "disabled": false
+        }
+      ]
+    }
+  ]
+}

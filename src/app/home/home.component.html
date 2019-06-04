@@ -1,9 +1,17 @@
-<div class="header">
-  <app-header></app-header>
-</div>
-<div class="clearfix">
-  <div class="body-left">
+<nz-layout>
+  <nz-sider nzCollapsible [nzTrigger]="triggerTemplate">
     <app-aside></app-aside>
-  </div>
-  <div class="body-right"></div>
-</div>
+  </nz-sider>
+  <nz-layout>
+    <nz-header style="background: #fff; padding:0;">
+      <app-header></app-header>
+    </nz-header>
+    <nz-content style="margin:10px 16px;">
+      <app-content></app-content>
+    </nz-content>
+    <nz-footer style="text-align: center;">Ant Design ©2019 Implement By Angular</nz-footer>
+  </nz-layout>
+</nz-layout>
+<ng-template #trigger>
+  <i nz-icon type="up"></i>
+</ng-template>
