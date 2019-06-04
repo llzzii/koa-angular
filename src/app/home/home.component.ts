@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
+  ngOnInit(): void {}
+  isCollapsed = false;
+  triggerTemplate: TemplateRef<void> | null = null;
+  @ViewChild("trigger") customTrigger: TemplateRef<void>;
 
-  constructor() { }
-
-  ngOnInit() {
+  /** custom trigger can be TemplateRef **/
+  changeTrigger(): void {
+    this.triggerTemplate = this.customTrigger;
   }
-
 }

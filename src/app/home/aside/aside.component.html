@@ -1,3 +1,6 @@
-<p>
-  aside works!
-</p>
+<div class="logo"><img src="../../assets/images/234png.png" alt="" /></div>
+<p class="project-name">{{ label }}</p>
+<ul nz-menu nzMode="inline" nzTheme="dark">
+  <app-aside-item *ngFor="let sideList of asideLists" [sideList]="sideList">
+  </app-aside-item>
+</ul>

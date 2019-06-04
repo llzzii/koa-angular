@@ -10,11 +10,9 @@ const httpOptions = {
 @Injectable({
   providedIn: "root"
 })
-export class LoginService {
+export class UserService {
   constructor(private http: HttpClient) {}
   login(data): Observable<any> {
-    return this.http
-      .post("/api/login", JSON.stringify(data), httpOptions)
-      .pipe(tap(response => response));
+    return this.http.post("/api/login", JSON.stringify(data), httpOptions).pipe(tap(response => response));
   }
 }
