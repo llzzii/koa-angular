@@ -1,40 +1,45 @@
 <div class="table-operations clearfix">
-  <button nzType="primary" nz-button (click)="sort('age', 'descend')">添加用户</button>
-  <button nz-button (click)="resetFilters()">删除用户</button>
+  <button nzType="primary" nz-button (click)="creatUser()">添加用户</button>
+  <button nz-button (click)="deleteUser()">删除用户</button>
 </div>
-<nz-table #dynamicTable [nzScroll]="fixHeader ? { y: '240px' } : null" [nzData]="listOfData" [nzBordered]="bordered"
-  [nzSimple]="simple" [nzLoading]="loading" [nzPaginationPosition]="position" [nzShowSizeChanger]="sizeChanger"
-  [nzFrontPagination]="pagination" [nzShowPagination]="true" [nzSize]="size"
-  (nzCurrentPageDataChange)="currentPageDataChange($event)">
+<nz-table #nzTable nzFrontPagination="true" [nzData]="listOfData" nzShowSizeChanger [nzTotal]="nzTotal"
+  [nzLoading]="loading" [nzNoResult]="noResult" nzBordered="true" nzSize="small" [nzShowTotal]="rangeTemplate">
   <thead>
     <tr *ngIf="header">
-      <th nzWidth="62px" nzShowCheckbox *ngIf="checkbox" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
+      <th nzWidth="62px" nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
         (nzCheckedChange)="checkAll($event)"></th>
       <th nzWidth="150px" nzShowSort [(nzSort)]="mapOfSort.name" (nzSortChange)="sort('name', $event)">用户名
       </th>
       <th nzWidth="70px" nzShowSort [(nzSort)]="mapOfSort.age" (nzSortChange)="sort('age', $event)">年龄</th>
       <th nzShowSort [(nzSort)]="mapOfSort.address" (nzSortChange)="sort('address', $event)">地址</th>
       <th nzShowSort [(nzSort)]="mapOfSort.tel" (nzSortChange)="sort('tel', $event)">电话</th>
+      <th nzShowSort [(nzSort)]="mapOfSort.email" (nzSortChange)="sort('email', $event)">邮箱</th>
+      <th nzShowSort [(nzSort)]="mapOfSort.created_time" (nzSortChange)="sort('email', $event)">创建时间</th>
       <th nzWidth="260px">操作</th>
     </tr>
   </thead>
   <tbody>
-    <ng-template ngFor let-data [ngForOf]="dynamicTable.data">
-      <tr>
-        <td nzShowCheckbox *ngIf="checkbox" [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus()">
-        </td>
-        <td>{{ data.name}}</td>
-        <td>{{ data.age }}</td>
-        <td>{{ data.address  }}</td>
-        <td>{{ data.tel  }}</td>
-        <td>
-          <a href="#">编辑</a>
-          <nz-divider nzType="vertical"></nz-divider>
-          <a href="#">重置密码</a>
-          <nz-divider nzType="vertical"></nz-divider>
-          <a href="#">删除</a>
-        </td>
-      </tr>
-    </ng-template>
+    <tr *ngFor="let data of nzTable.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus()">
+      </td>
+      <td>{{ data.username}}</td>
+      <td>{{ data.age ||"--" }}</td>
+      <td>{{ data.address ||"--" }}</td>
+      <td>{{ data.tel ||"--" }}</td>
+      <td>{{ data.email ||"--" }}</td>
+      <td>{{ data.created_time| date: 'y-MM-dd HH:mm:ss'}}</td>
+      <td>
+        <a (click)="updateUser(data)">编辑</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="refreshPassword(data)">重置密码</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="deleteUser(data.id)">删除</a>
+      </td>
+    </tr>
   </tbody>
+  <ng-template #noResult>
+    <div class="table-no-result">抱歉，您还没有用户！</div>
+  </ng-template>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <!--第{{range[0]}}-{{range[1]<=total ? range[1] : total}}条 -->共{{ nzTotal }}条 </ng-template>
 </nz-table>

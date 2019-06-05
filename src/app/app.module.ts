@@ -12,14 +12,15 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { registerLocaleData } from "@angular/common";
 import zh from "@angular/common/locales/zh";
 import { HomeModule } from "./home/home.module";
+import { AdduserComponent } from "./user/adduser/adduser.component";
+import { UpdateuserComponent } from "./user/updateuser/updateuser.component";
 registerLocaleData(zh);
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, UserlistComponent, HomeComponent],
+  declarations: [AppComponent, LoginComponent, UserlistComponent, HomeComponent, AdduserComponent, UpdateuserComponent],
   imports: [
     HomeModule,
     BrowserModule,
-
     FormsModule,
     ReactiveFormsModule,
     NgZorroAntdModule,
@@ -28,6 +29,7 @@ registerLocaleData(zh);
     AppRoutingModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  entryComponents: [AdduserComponent, UpdateuserComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

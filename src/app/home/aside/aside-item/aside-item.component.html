@@ -22,8 +22,7 @@
     routerLinkActive="active">
     <i nz-icon [nzType]="sideList.icon"></i>{{sideList.label}}
   </a>
-  <a *ngIf="!sideList.path" [routerLink]="'/'+sideList.link" routerLinkActive="active" (click)="openChange1()"
-    [attr.target]="sideList.target">
+  <a *ngIf="!sideList.path" [routerLink]="'/'+sideList.link" routerLinkActive="active" [attr.target]="sideList.target">
     <i nz-icon [nzType]="sideList.icon"></i>{{sideList.label}}
   </a>
 </li>

@@ -9,7 +9,5 @@ export class AsideItemComponent implements OnInit {
   constructor() {}
   @Input() sideList: any;
 
-  ngOnInit() {
-    debugger;
-  }
+  ngOnInit() {}
 }

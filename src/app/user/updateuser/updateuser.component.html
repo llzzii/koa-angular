@@ -1,0 +1,47 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="username">用户名</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input formControlName="username" [(ngModel)]="rowdata.username" id="username" />
+      <nz-form-explain *ngIf="validateForm.get('username')?.dirty && validateForm.get('username')?.errors">
+        请输入您的用户名
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email" nzRequired>
+      邮箱
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="email" [(ngModel)]="rowdata.email" formControlName="email" />
+      <nz-form-explain *ngIf="validateForm.get('email')?.dirty && validateForm.get('email')?.errors">输入正确邮箱!
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tel" nzRequired>电话号码</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="validateForm.controls['tel']">
+      <nz-input-group>
+        <input formControlName="tel" [(ngModel)]="rowdata.tel" id="'tel'" nz-input />
+      </nz-input-group>
+      <nz-form-explain *ngIf="validateForm.get('tel')?.dirty && validateForm.get('tel')?.errors">请输入正确电话号码
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="age">年龄</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="age" [(ngModel)]="rowdata.age" formControlName="age" placeholder="年龄" />
+      <nz-form-explain *ngIf="validateForm.get('age')?.dirty && validateForm.get('age')?.errors">请输入您的年龄
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address">地址</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="address" [(ngModel)]="rowdata.address" formControlName="address" placeholder="地址" />
+      <nz-form-explain *ngIf="validateForm.get('address')?.dirty && validateForm.get('address')?.errors">请输入正确的地址
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+</form>
