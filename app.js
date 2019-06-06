@@ -5,15 +5,31 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-
+const koaJwt = require("koa-jwt");
 const userinfo = require('./routes/userinfo')
-
+const info = require("./middleware/info");
 // error handler
 onerror(app)
 
+app.use((ctx, next) => {
+  return next().catch((err) => {
+    if (err.status == 401) {
+      ctx.status = 401;
+      ctx.body = info.err("登陆过期，请重新登陆")
+
+    }
+  })
+})
+app.use(koaJwt({
+  secret: 'token'
+}).unless({
+  path: ["/api/login"]
+}));
+
+
 // middlewares
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())

@@ -2,6 +2,7 @@ const router = require("koa-router")();
 const md5 = require("md5");
 const user = require("../model/userinfo");
 const info = require("../middleware/info");
+const jwt = require('jsonwebtoken');
 
 //登录
 router.post("/api/login", async (ctx) => {
@@ -11,7 +12,13 @@ router.post("/api/login", async (ctx) => {
     const data = await user.login(userinfo.username);
     if (data[0]) {
       if (data[0].password === password) {
-        ctx.body = info.suc("登录成功");
+        const token = jwt.sign({
+          name: data[0].username,
+          _id: data[0].id
+        }, "token", {
+          expiresIn: "0.5h"
+        });
+        ctx.body = info.suc("登录成功", token);
       } else {
         ctx.body = info.err("账号或密码错误");
       }

@@ -37,7 +37,7 @@
       "children": [{
           "level": 2,
           "label": "新闻",
-          "link": "hub/project",
+          "link": "news",
           "icon": "fas fa-box-open",
           "open": false,
           "selected": false,

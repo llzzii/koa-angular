@@ -91,8 +91,9 @@ export class UserlistComponent implements OnInit {
           ids += e.id + ",";
         }
       });
+      data = ids;
     }
-    data = ids;
+
     this.userService.deleteUser(data).subscribe(
       data => {
         this.loading = false;
