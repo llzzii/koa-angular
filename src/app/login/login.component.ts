@@ -7,7 +7,7 @@ import { LoginService } from "../service/login.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
   validateForm: FormGroup;
@@ -19,8 +19,10 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
       data[i] = this.validateForm.controls[i].value;
     }
-    this.loginService.login(data).subscribe((data) => {
+    this.loginService.login(data).subscribe(data => {
       if (data.isok) {
+        let token = data.data;
+        sessionStorage.setItem("token", token);
         this.router.navigate(["/home"]);
       } else {
         this.message.create("error", data.msg);
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.validateForm = this.fb.group({
       username: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      remember: [true],
+      remember: [true]
     });
   }
 }

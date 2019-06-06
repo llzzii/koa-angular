@@ -5,7 +5,7 @@
   "sideLists": [{
       "level": 1,
       "label": "工作台",
-      "link": "/home",
+      "link": "/home/work",
       "icon": "home",
       "open": false,
       "selected": false,
@@ -36,8 +36,8 @@
       "disabled": false,
       "children": [{
           "level": 2,
-          "label": "项目",
-          "link": "hub/project",
+          "label": "新闻",
+          "link": "news",
           "icon": "fas fa-box-open",
           "open": false,
           "selected": false,

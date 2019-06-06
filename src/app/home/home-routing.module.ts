@@ -15,6 +15,10 @@ const routes: Routes = [
       {
         path: "user",
         component: UserlistComponent
+      },
+      {
+        path: "work",
+        component: WorkComponent
       }
     ]
   }

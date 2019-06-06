@@ -12,7 +12,20 @@ const httpOptions = {
 })
 export class UserService {
   constructor(private http: HttpClient) {}
-  login(data): Observable<any> {
-    return this.http.post("/api/login", JSON.stringify(data), httpOptions).pipe(tap(response => response));
+  getUserList(): Observable<any> {
+    return this.http.get("/api/userlist").pipe(tap(response => response));
+  }
+  createUser(data): Observable<any> {
+    return this.http.post("/api/create", JSON.stringify(data), httpOptions).pipe(tap(response => response));
+  }
+  updateUser(data): Observable<any> {
+    return this.http.put("/api/update", JSON.stringify(data), httpOptions).pipe(tap(response => response));
+  }
+  refreshPassword(data): Observable<any> {
+    return this.http.put("/api/updatePassword", JSON.stringify(data), httpOptions).pipe(tap(response => response));
+  }
+  deleteUser(data): Observable<any> {
+    let userParams = new HttpParams().append("userid", data);
+    return this.http.delete("/api/delete", { params: userParams }).pipe(tap(response => response));
   }
 }
