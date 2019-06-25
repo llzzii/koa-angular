@@ -81,7 +81,7 @@ export class UserlistComponent implements OnInit {
       }
     });
   }
-  deleteUser(data) {
+  deleteUser(data=null) {
     this.loading = true;
     let ids = "";
     if (data == null) {

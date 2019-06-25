@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "dev": "concurrently \"npm run start\" \"npm run server\"",
-    "build": "ng build",
+    "build": "ng build --prod --outputPath=dist/demo --base-href=/iot/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
