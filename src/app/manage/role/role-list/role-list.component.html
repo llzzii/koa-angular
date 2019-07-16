@@ -1,0 +1,120 @@
+<div class="table-operations clearfix">
+  <button nzType="primary" nz-button (click)="creatRole(addContent)">添加</button>
+  <button nz-button (click)="deleteRole()">删除</button>
+</div>
+<nz-table
+  #nzTable
+  nzFrontPagination="true"
+  [nzData]="listOfData"
+  nzShowSizeChanger
+  [nzTotal]="nzTotal"
+  [nzLoading]="loading"
+  [nzNoResult]="noResult"
+  nzBordered="true"
+  nzSize="small"
+  [nzShowTotal]="rangeTemplate"
+>
+  <thead>
+    <tr *ngIf="header">
+      <th
+        nzWidth="62px"
+        nzShowCheckbox
+        [(nzChecked)]="allChecked"
+        [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="checkAll($event)"
+      ></th>
+      <th nzShowSort [(nzSort)]="mapOfSort.number" (nzSortChange)="sort('number', $event)">编号</th>
+      <th nzShowSort [(nzSort)]="mapOfSort.role_name" (nzSortChange)="sort('role_name', $event)">角色名称</th>
+      <th>权限</th>
+      <th nzShowSort>描述</th>
+      <th nzShowSort [(nzSort)]="mapOfSort.created_time" (nzSortChange)="sort('created_time', $event)">创建时间</th>
+      <th nzWidth="260px">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of nzTable.data">
+      <td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus()"></td>
+      <td>{{ data.number }}</td>
+      <td>{{ data.role_name || "--" }}</td>
+      <td>
+        {{ data.is_create === 1 ? "添加" : "" }}, {{ data.is_view === 1 ? "查看" : "" }},
+        {{ data.is_update === 1 ? "编辑" : "" }}, {{ data.is_delete === 1 ? "删除" : "" }},
+        {{ data.is_action === 1 ? "操作" : "" }}
+      </td>
+      <td>{{ data.description || "--" }}</td>
+      <td>{{ data.created_time | date: "y-MM-dd HH:mm:ss" }}</td>
+      <td>
+        <a (click)="updateUser(data)">编辑</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="deleteUser(data.id)">删除</a>
+      </td>
+    </tr>
+  </tbody>
+  <ng-template #noResult>
+    <div class="table-no-result">抱歉，您还没有角色！</div>
+  </ng-template>
+  <ng-template #rangeTemplate let-range="range" let-total>
+    <!--第{{range[0]}}-{{range[1]<=total ? range[1] : total}}条 -->共{{ nzTotal }}条
+  </ng-template>
+</nz-table>
+<ng-template #addContent>
+  <form nz-form *ngIf="addValidateForm" [formGroup]="addValidateForm">
+    <nz-form-item>
+      <nz-form-label nzFor="number" nz-col [nzSm]="6" [nzXs]="24" nzRequired
+        >编号<span class="required-icon">*</span>
+      </nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzErrorTip="编码不能为空!">
+        <input formControlName="number" type="number" [ngModel]="numbers" id="number" nz-input />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="role_name" nzRequired>角色名称</nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzErrorTip="角色名称不能为空!">
+        <input formControlName="role_name" id="role_name" nz-input />
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="is_create" nzRequired>创建权限</nz-form-label>
+          <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+            <nz-switch formControlName="is_create" id="is_create" nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="is_update" nzRequired>编辑权限</nz-form-label>
+          <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+            <nz-switch formControlName="is_update" id="is_update" nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="is_delete" nzRequired>删除权限</nz-form-label>
+          <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+            <nz-switch formControlName="is_delete" id="is_delete" nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nzFlex>
+          <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="is_view" nzRequired>查看权限</nz-form-label>
+          <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+            <nz-switch formControlName="is_view" id="is_view" nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <nz-form-item>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="is_action" nzRequired>操作权限</nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+        <nz-switch formControlName="is_action" id="is_action" nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nz-col [nzSm]="6" [nzXs]="24" nzFor="description">描述</nz-form-label>
+      <nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+        <textarea formControlName="description" id="description" nz-input rows="2"> </textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</ng-template>

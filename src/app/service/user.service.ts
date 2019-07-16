@@ -12,8 +12,14 @@ const httpOptions = {
 })
 export class UserService {
   constructor(private http: HttpClient) {}
-  getUserList(): Observable<any> {
-    return this.http.get("/api/userlist").pipe(tap(response => response));
+  getUserList(current, pageSize, sortName, sortValue, queryData): Observable<any> {
+    let userParams = new HttpParams()
+      .append("current", current)
+      .append("pageSize", pageSize)
+      .append("sortName", sortName)
+      .append("sortValue", sortValue)
+      .append("queryData", queryData);
+    return this.http.get("/api/userlist", { params: userParams }).pipe(tap(response => response));
   }
   createUser(data): Observable<any> {
     return this.http.post("/api/create", JSON.stringify(data), httpOptions).pipe(tap(response => response));
@@ -27,5 +33,21 @@ export class UserService {
   deleteUser(data): Observable<any> {
     let userParams = new HttpParams().append("userid", data);
     return this.http.delete("/api/delete", { params: userParams }).pipe(tap(response => response));
+  }
+  /**
+   * Role相关接口
+   */
+
+  getRoleList(current, pageSize, sortName, sortValue, queryData): Observable<any> {
+    let userParams = new HttpParams()
+      .append("current", current)
+      .append("pageSize", pageSize)
+      .append("sortName", sortName)
+      .append("sortValue", sortValue)
+      .append("queryData", queryData);
+    return this.http.get("/api/rolelist", { params: userParams }).pipe(tap(response => response));
+  }
+  createRole(data): Observable<any> {
+    return this.http.post("/api/role-create", JSON.stringify(data), httpOptions).pipe(tap(response => response));
   }
 }

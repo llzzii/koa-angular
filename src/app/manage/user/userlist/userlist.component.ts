@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { formatDate } from "@angular/common";
-import { UserService } from "../../service/user.service";
+import { UserService } from "../../../service/user.service";
 import { NzModalRef, NzModalService, NzMessageService } from "ng-zorro-antd";
 import { AdduserComponent } from "../adduser/adduser.component";
 import { UpdateuserComponent } from "../updateuser/updateuser.component";
@@ -27,24 +27,24 @@ export class UserlistComponent implements OnInit {
 
   nzTotal: number;
   pageSize: number = 10;
-  current: number = 0;
+  current: number = 1;
 
   mapOfSort: { [key: string]: any } = {
     name: null,
     age: null,
     address: null
   };
-  sortName: string | null = null;
-  sortValue: string | null = null;
-
+  sortName: string = "created_time";
+  sortValue: string = "descend";
+  queryData: string = "";
   getUserListData(): void {
     this.loading = true;
-    this.userService.getUserList().subscribe(
+    this.userService.getUserList(this.current, this.pageSize, this.sortName, this.sortValue, this.queryData).subscribe(
       data => {
         this.loading = false;
-        this.listOfData = data || [];
-        this.displayData = data || [];
-        this.nzTotal = this.listOfData.length;
+        this.listOfData = data.dataList || [];
+        this.displayData = data.dataList || [];
+        this.nzTotal = data.totalRows;
       },
       error => {
         this.loading = false;
@@ -81,7 +81,7 @@ export class UserlistComponent implements OnInit {
       }
     });
   }
-  deleteUser(data=null) {
+  deleteUser(data = null) {
     this.loading = true;
     let ids = "";
     if (data == null) {
@@ -122,9 +122,7 @@ export class UserlistComponent implements OnInit {
   sort(sortName: string, value: string): void {
     this.sortName = sortName;
     this.sortValue = value;
-    for (const key in this.mapOfSort) {
-      this.mapOfSort[key] = key === sortName ? value : null;
-    }
+    this.getUserListData();
   }
 
   currentPageDataChange(

@@ -2,19 +2,21 @@
   <button nzType="primary" nz-button (click)="creatUser()">添加用户</button>
   <button nz-button (click)="deleteUser()">删除用户</button>
 </div>
-<nz-table #nzTable nzFrontPagination="true" [nzData]="listOfData" nzShowSizeChanger [nzTotal]="nzTotal"
-  [nzLoading]="loading" [nzNoResult]="noResult" nzBordered="true" nzSize="small" [nzShowTotal]="rangeTemplate">
+<nz-table #nzTable [nzData]="listOfData" nzShowSizeChanger [nzTotal]="nzTotal" [nzLoading]="loading"
+  [nzNoResult]="noResult" nzBordered="true" nzSize="small" [nzShowTotal]="rangeTemplate" [nzFrontPagination]="false"
+  [(nzPageIndex)]="current" (nzPageIndexChange)="getUserListData()" [(nzPageSize)]="pageSize"
+  (nzPageSizeChange)="getUserListData()">
   <thead>
     <tr *ngIf="header">
       <th nzWidth="62px" nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate"
         (nzCheckedChange)="checkAll($event)"></th>
-      <th nzWidth="150px" nzShowSort [(nzSort)]="mapOfSort.name" (nzSortChange)="sort('name', $event)">用户名
+      <th nzWidth="150px" nzShowSort [(nzSort)]="mapOfSort.username" (nzSortChange)="sort('username', $event)">用户名
       </th>
       <th nzWidth="70px" nzShowSort [(nzSort)]="mapOfSort.age" (nzSortChange)="sort('age', $event)">年龄</th>
-      <th nzShowSort [(nzSort)]="mapOfSort.address" (nzSortChange)="sort('address', $event)">地址</th>
-      <th nzShowSort [(nzSort)]="mapOfSort.tel" (nzSortChange)="sort('tel', $event)">电话</th>
-      <th nzShowSort [(nzSort)]="mapOfSort.email" (nzSortChange)="sort('email', $event)">邮箱</th>
-      <th nzShowSort [(nzSort)]="mapOfSort.created_time" (nzSortChange)="sort('email', $event)">创建时间</th>
+      <th>地址</th>
+      <th>电话</th>
+      <th>邮箱</th>
+      <th nzShowSort [(nzSort)]="mapOfSort.created_time" (nzSortChange)="sort('created_time', $event)">创建时间</th>
       <th nzWidth="260px">操作</th>
     </tr>
   </thead>

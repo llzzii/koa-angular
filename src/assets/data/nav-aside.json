@@ -18,14 +18,33 @@
       "selected": false,
       "disabled": false,
       "children": [{
-        "level": 2,
-        "label": "用户列表",
-        "icon": "fas fa-box-open",
-        "open": false,
-        "selected": false,
-        "disabled": false,
-        "link": "/home/user"
-      }]
+          "level": 2,
+          "label": "部门列表",
+          "icon": "fas fa-box-open",
+          "open": false,
+          "selected": false,
+          "disabled": false,
+          "link": "/home/dept"
+        },
+        {
+          "level": 2,
+          "label": "角色列表",
+          "icon": "fas fa-box-open",
+          "open": false,
+          "selected": false,
+          "disabled": false,
+          "link": "/home/role"
+        },
+        {
+          "level": 2,
+          "label": "用户列表",
+          "icon": "fas fa-box-open",
+          "open": false,
+          "selected": false,
+          "disabled": false,
+          "link": "/home/user"
+        }
+      ]
     },
     {
       "level": 1,

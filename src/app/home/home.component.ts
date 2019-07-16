@@ -8,7 +8,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
   isCollapsed = false;
   triggerTemplate: TemplateRef<void> | null = null;
-  @ViewChild("trigger") customTrigger: TemplateRef<void>;
+  @ViewChild("trigger", { static: false }) customTrigger: TemplateRef<void>;
 
   /** custom trigger can be TemplateRef **/
   changeTrigger(): void {

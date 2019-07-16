@@ -1,16 +1,17 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { NzMessageService } from "ng-zorro-antd";
-import { UserService } from "../../service/user.service";
+import { UserService } from "../../../service/user.service";
 
 @Component({
-  selector: "app-adduser",
-  templateUrl: "./adduser.component.html",
-  styleUrls: ["./adduser.component.css"]
+  selector: "app-updateuser",
+  templateUrl: "./updateuser.component.html",
+  styleUrls: ["./updateuser.component.css"]
 })
-export class AdduserComponent implements OnInit {
+export class UpdateuserComponent implements OnInit {
   validateForm: FormGroup;
   @Output() createSucceed = new EventEmitter();
+  @Input() rowdata;
   constructor(private fb: FormBuilder, private message: NzMessageService, private userService: UserService) {}
 
   submitForm(): boolean {
@@ -21,13 +22,14 @@ export class AdduserComponent implements OnInit {
       data[i] = this.validateForm.controls[i].value;
     }
     if (!this.validateForm.valid) return false;
-    this.create(data);
+    data["id"] = this.rowdata.id;
+    this.update(data);
     return true;
   }
 
-  create(data) {
-    const mid = this.message.loading("正在创建中", { nzDuration: 0 }).messageId;
-    this.userService.createUser(data).subscribe(
+  update(data) {
+    const mid = this.message.loading("正在修改中", { nzDuration: 0 }).messageId;
+    this.userService.updateUser(data).subscribe(
       respose => {
         this.createSucceed.emit();
         this.message.create(`${respose.isok == 1 ? "success" : "error"}`, `${respose.msg}`);

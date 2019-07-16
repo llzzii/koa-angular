@@ -12,13 +12,15 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { registerLocaleData } from "@angular/common";
 import zh from "@angular/common/locales/zh";
 import { HomeModule } from "./home/home.module";
-import { UserModule } from "./user/user.module";
+import { UserModule } from "./manage/manage.module";
 import { NewsModule } from "./news/news.module";
+import { RoleListComponent } from './manage/role/role-list/role-list.component';
+import { DeptListComponent } from './manage/department/dept-list/dept-list.component';
 
 registerLocaleData(zh);
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent],
+  declarations: [AppComponent, LoginComponent, HomeComponent, RoleListComponent, DeptListComponent],
   imports: [
     HomeModule,
     NewsModule,
